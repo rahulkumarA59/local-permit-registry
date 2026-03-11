@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Permit Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Permit Details</h1>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Permit ID: <span th:text="${permit.id}"></span></h5>
+            <p class="card-text"><strong>Applicant Name:</strong> <span th:text="${permit.applicantName}"></span></p>
+            <p class="card-text"><strong>Applicant Contact:</strong> <span th:text="${permit.applicantContact}"></span></p>
+            <p class="card-text"><strong>Permit Type:</strong> <span th:text="${permit.permitType}"></span></p>
+            <p class="card-text"><strong>Ward or Area:</strong> <span th:text="${permit.wardOrArea}"></span></p>
+            <p class="card-text"><strong>Application Date:</strong> <span th:text="${#temporals.format(permit.applicationDate, 'yyyy-MM-dd')}"></span></p>
+            <p class="card-text"><strong>Intended Start Date:</strong> <span th:text="${#temporals.format(permit.intendedStartDate, 'yyyy-MM-dd')}"></span></p>
+            <p class="card-text"><strong>Intended End Date:</strong> <span th:text="${#temporals.format(permit.intendedEndDate, 'yyyy-MM-dd')}"></span></p>
+            <p class="card-text"><strong>Remarks:</strong> <span th:text="${permit.remarks}"></span></p>
+            <p class="card-text"><strong>Status:</strong> <span th:text="${permit.status}"></span></p>
+        </div>
+    </div>
+    <a href="/permits" class="btn btn-secondary mt-3">Back to List</a>
+</div>
+</body>
+</html>

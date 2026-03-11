@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Permit List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Permit List</h1>
+    <a href="/permits/add" class="btn btn-primary mb-3">Add New Permit</a>
+    <a href="/permits/dashboard" class="btn btn-info mb-3">View Dashboard</a>
+
+    <!-- Filters -->
+    <form th:action="@{/permits}" method="get" class="mb-4">
+        <div class="row">
+            <div class="col-md-2">
+                <label for="wardOrArea" class="form-label">Ward/Area</label>
+                <input type="text" class="form-control" id="wardOrArea" name="wardOrArea" th:value="${filter.wardOrArea}">
+            </div>
+            <div class="col-md-2">
+                <label for="permitType" class="form-label">Permit Type</label>
+                <select class="form-control" id="permitType" name="permitType">
+                    <option value="">All</option>
+                    <option th:each="type : ${permitTypes}" th:value="${type}" th:text="${type}" th:selected="${filter.permitType == type}"></option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-control" id="status" name="status">
+                    <option value="">All</option>
+                    <option th:each="status : ${statuses}" th:value="${status}" th:text="${status}" th:selected="${filter.status == status}"></option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="startDate" class="form-label">Start Date</label>
+                <input type="date" class="form-control" id="startDate" name="startDate" th:value="${filter.startDate}">
+            </div>
+            <div class="col-md-2">
+                <label for="endDate" class="form-label">End Date</label>
+                <input type="date" class="form-control" id="endDate" name="endDate" th:value="${filter.endDate}">
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-secondary">Filter</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Table -->
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Applicant Name</th>
+            <th>Permit Type</th>
+            <th>Ward/Area</th>
+            <th>Application Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="permit : ${permits}">
+            <td th:text="${permit.id}"></td>
+            <td th:text="${permit.applicantName}"></td>
+            <td th:text="${permit.permitType}"></td>
+            <td th:text="${permit.wardOrArea}"></td>
+            <td th:text="${#temporals.format(permit.applicationDate, 'yyyy-MM-dd')}"></td>
+            <td th:text="${permit.status}"></td>
+            <td>
+                <a th:href="@{/permits/{id}(id=${permit.id})}" class="btn btn-sm btn-info">View</a>
+                <a th:href="@{/permits/edit/{id}(id=${permit.id})}" class="btn btn-sm btn-warning">Edit</a>
+                <a th:href="@{/permits/delete/{id}(id=${permit.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
