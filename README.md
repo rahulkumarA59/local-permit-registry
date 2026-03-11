@@ -1,1 +1,1 @@
-# local-permit-registry
+local permit registry project has been pushed ..
